@@ -1,9 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-// Placeholder homepage?
+// Placeholder
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send('Comment');
 });
+
+// CREATE
+
+// READ
+
+// UPDATE
+
+// DELETE
 
 module.exports = router;
