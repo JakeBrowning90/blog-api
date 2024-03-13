@@ -8,14 +8,17 @@ const authorController = require("../controllers/authorController");
 //   res.send('Read Author');
 // });
 
-// READ
-
+// READ all authors
 router.get('/', authorController.author_list);
 
 // CREATE
-router.post('/', function(req, res, next) {
-  res.send('Create Author');
-});
+// router.post('/', function(req, res, next) {
+//   res.send('Create Author');
+// });
+router.post('/', authorController.create_author);
+
+// READ one author
+router.get('/:id', authorController.author_read);
 
 // UPDATE
 router.put('/', function(req, res, next) {
