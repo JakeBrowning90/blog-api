@@ -8,7 +8,7 @@ require('dotenv').config();
 const indexRouter = require('./routes/index');
 const authorsRouter = require('./routes/authors');
 const postsRouter = require('./routes/posts');
-const visitorsRouter = require('./routes/visitors');
+const readersRouter = require('./routes/readers');
 const commentsRouter = require('./routes/comments');
 
 const app = express();
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
-app.use('/visitors', visitorsRouter);
+app.use('/readers', readersRouter);
 app.use('/comments', commentsRouter);
 
 // catch 404 and forward to error handler

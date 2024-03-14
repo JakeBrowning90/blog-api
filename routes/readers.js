@@ -3,21 +3,21 @@ const router = express.Router();
 
 // Placeholder
 router.get('/', function(req, res, next) {
-  res.send('Read Visitor');
+  res.send('Read Reader');
 });
 
 // READ (Above)
 
 // CREATE
 router.post('/', function(req, res, next) {
-    res.send('Create Visitor');
+    res.send('Create Reader');
   });
 // UPDATE
 router.put('/', function(req, res, next) {
-    res.send('Update Visitor');
+    res.send('Update Reader');
   });
 // DELETE
 router.delete('/', function(req, res, next) {
-    res.send('Delete Visitor');
+    res.send('Delete Reader');
   });
 module.exports = router;

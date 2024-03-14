@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Placeholder
 router.get('/', function(req, res, next) {
-  res.send('Post');
+  res.send('Show all Posts');
 });
 
 // CREATE

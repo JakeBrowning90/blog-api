@@ -28,6 +28,8 @@ exports.create_author = asyncHandler(async (req, res, next) => {
   const author = new Author({
     first_name: req.body.first_name,
     last_name: req.body.last_name,
+    email: req.body.email,
+    password: req.body.password,
   });
   await author.save();
   res.json(author);
