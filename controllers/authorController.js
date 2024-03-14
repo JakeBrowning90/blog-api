@@ -24,7 +24,7 @@ exports.author_read = asyncHandler(async (req, res, next) => {
   res.json(author);
 });
 
-exports.create_author = asyncHandler(async (req, res, next) => {
+exports.author_create = asyncHandler(async (req, res, next) => {
   const author = new Author({
     first_name: req.body.first_name,
     last_name: req.body.last_name,
@@ -32,5 +32,19 @@ exports.create_author = asyncHandler(async (req, res, next) => {
     password: req.body.password,
   });
   await author.save();
+  res.json(author);
+});
+
+exports.author_update = asyncHandler(async (req, res, next) => {
+  const author = new Author({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    password: req.body.password,
+    _id: req.params.id,
+  });
+
+  await Author.findByIdAndUpdate(req.params.id, author);
+
   res.json(author);
 });

@@ -15,15 +15,17 @@ router.get('/', authorController.author_list);
 // router.post('/', function(req, res, next) {
 //   res.send('Create Author');
 // });
-router.post('/', authorController.create_author);
+router.post('/', authorController.author_create);
 
 // READ one author
 router.get('/:id', authorController.author_read);
 
 // UPDATE
-router.put('/', function(req, res, next) {
-  res.send('Update Author');
-});
+// router.put('/', function(req, res, next) {
+//   res.send('Update Author');
+// });
+
+router.put('/:id', authorController.author_update);
 
 // DELETE
 router.delete('/', function(req, res, next) {
