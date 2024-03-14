@@ -48,3 +48,9 @@ exports.author_update = asyncHandler(async (req, res, next) => {
 
   res.json(author);
 });
+
+exports.author_delete = asyncHandler(async (req, res, next) => {
+  await Author.findByIdAndDelete(req.params.id);
+
+  res.json('Deleted!');
+});
