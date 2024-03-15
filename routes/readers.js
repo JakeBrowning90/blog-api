@@ -1,23 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-// Placeholder
-router.get('/', function(req, res, next) {
-  res.send('Read Reader');
-});
+const readerController = require("../controllers/readerController");
 
-// READ (Above)
+// Placeholder
+// router.get('/', function(req, res, next) {
+//   res.send('Show all Posts');
+// });
+
+// READ all readers
+router.get('/', readerController.reader_list);
 
 // CREATE
-router.post('/', function(req, res, next) {
-    res.send('Create Reader');
-  });
+router.post('/', readerController.reader_create);
+
+// READ one reader
+router.get('/:id', readerController.reader_read);
+
 // UPDATE
-router.put('/', function(req, res, next) {
-    res.send('Update Reader');
-  });
+router.put('/:id', readerController.reader_update);
+
 // DELETE
-router.delete('/', function(req, res, next) {
-    res.send('Delete Reader');
-  });
+router.delete('/:id', readerController.reader_delete);
+
 module.exports = router;
