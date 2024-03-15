@@ -31,6 +31,7 @@ exports.author_create = asyncHandler(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
   });
+  
   await author.save();
   res.json(author);
 });

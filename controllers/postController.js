@@ -31,11 +31,22 @@ exports.post_read = asyncHandler(async (req, res, next) => {
 });
 
 exports.post_update = asyncHandler(async (req, res, next) => {
-    
-    res.json('Update a post!');
+    const post = new Post({
+        title: req.body.title,
+        body: req.body.body,
+        author: req.body.author,
+        timestamp:  Date.now(),
+        is_published: false, 
+        _id: req.params.id,
+    });
+
+    await Post.findByIdAndUpdate(req.params.id, post);
+
+    res.json(post);
 });
 
 exports.post_delete = asyncHandler(async (req, res, next) => {
-    
-    res.json('Delete a post!');
+    await Post.findByIdAndDelete(req.params.id);
+
+    res.json('Deleted post');
 });

@@ -14,7 +14,11 @@ exports.reader_list = asyncHandler(async (req, res, next) => {
 
 exports.reader_create = asyncHandler(async (req, res, next) => {
     const reader = new Reader({
-        //TODO 
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        password: req.body.password,
+        is_admin: false,
     });
     await reader.save();
     res.json(reader);
@@ -27,11 +31,20 @@ exports.reader_read = asyncHandler(async (req, res, next) => {
 });
 
 exports.reader_update = asyncHandler(async (req, res, next) => {
+    const reader = new Reader({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        password: req.body.password,
+        is_admin: false,
+        _id: req.params.id,
+      });
     
-    res.json('Update a reader!');
+      await Reader.findByIdAndUpdate(req.params.id, reader);
+      res.json(reader);
 });
 
 exports.reader_delete = asyncHandler(async (req, res, next) => {
-    
-    res.json('Delete a reader!');
+    await Reader.findByIdAndDelete(req.params.id);
+    res.json('Reader');
 });

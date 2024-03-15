@@ -15,11 +15,10 @@ exports.comment_list = asyncHandler(async (req, res, next) => {
 exports.comment_create = asyncHandler(async (req, res, next) => {
     const comment = new Comment({
         // TODO
-        title: req.body.title,
         body: req.body.body,
-        author: req.body.author,
         timestamp:  Date.now(),
-        is_published: false, 
+        visitor: req.body.visitor,
+        post: req.body.post,
     });
     await comment.save();
     res.json(comment);
@@ -32,11 +31,21 @@ exports.comment_read = asyncHandler(async (req, res, next) => {
 });
 
 exports.comment_update = asyncHandler(async (req, res, next) => {
-    
-    res.json('Update a comment!');
+    const comment = new Comment({
+        body: req.body.body,
+        timestamp:  Date.now(),
+        visitor: req.body.visitor,
+        post: req.body.post,
+        _id: req.params.id,
+    });
+
+    await Comment.findByIdAndUpdate(req.params.id, comment);
+
+    res.json(comment);
 });
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {
-    
-    res.json('Delete a comment!');
+    await Comment.findByIdAndDelete(req.params.id);
+
+    res.json('Deleted comment');
 });
