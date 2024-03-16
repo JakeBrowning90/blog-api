@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
     body: { type: String },
     timestamp: { type: Date, default: Date.now },
-    visitor: { type: Schema.Types.ObjectId, ref:"Visitor" },
+    reader: { type: Schema.Types.ObjectId, ref:"Reader" },
     post: { type: Schema.Types.ObjectId, ref:"Post" },
 });
 

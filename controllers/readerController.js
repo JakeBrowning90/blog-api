@@ -46,5 +46,5 @@ exports.reader_update = asyncHandler(async (req, res, next) => {
 
 exports.reader_delete = asyncHandler(async (req, res, next) => {
     await Reader.findByIdAndDelete(req.params.id);
-    res.json('Reader');
+    res.json('Deleted Reader');
 });

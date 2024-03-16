@@ -8,7 +8,7 @@ const asyncHandler = require("express-async-handler");
 // });
 
 exports.comment_list = asyncHandler(async (req, res, next) => {
-    const allComments = await Post.find().exec();
+    const allComments = await Comment.find().exec();
     res.json(allComments);
 });
 
@@ -17,7 +17,7 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
         // TODO
         body: req.body.body,
         timestamp:  Date.now(),
-        visitor: req.body.visitor,
+        reader: req.body.reader,
         post: req.body.post,
     });
     await comment.save();
@@ -34,7 +34,7 @@ exports.comment_update = asyncHandler(async (req, res, next) => {
     const comment = new Comment({
         body: req.body.body,
         timestamp:  Date.now(),
-        visitor: req.body.visitor,
+        reader: req.body.reader,
         post: req.body.post,
         _id: req.params.id,
     });
