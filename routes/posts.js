@@ -17,6 +17,10 @@ router.post('/', postController.post_create);
 // READ one post
 router.get('/:id', postController.post_read);
 
+// READ one post with comments
+router.get('/:id/comments', postController.post_read_comments);
+
+
 // UPDATE
 router.put('/:id', postController.post_update);
 

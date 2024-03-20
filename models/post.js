@@ -7,6 +7,10 @@ const PostSchema = new Schema({
     timestamp: { type: Date , default: Date.now,},
     is_published: { type: Boolean },
     author: { type: Schema.Types.ObjectId, ref:"Author", required: true  }
+}, {toJSON: { virtuals: true }});
+
+PostSchema.virtual("url").get(function () {
+    return`/posts/${this._id}`;
 });
 
 module.exports = mongoose.model("Post", PostSchema)

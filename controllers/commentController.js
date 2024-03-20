@@ -7,10 +7,17 @@ const asyncHandler = require("express-async-handler");
 
 // });
 
+// Get ALL comments (unneeded?)
 exports.comment_list = asyncHandler(async (req, res, next) => {
-    const allComments = await Comment.find().exec();
+    const allComments = await Comment.find().populate('reader').exec();
     res.json(allComments);
 });
+
+// Get ALL comments for given post
+// exports.comment_list = asyncHandler(async (req, res, next) => {
+//     const allComments = await Comment.find().exec();
+//     res.json(allComments);
+// });
 
 exports.comment_create = asyncHandler(async (req, res, next) => {
     const comment = new Comment({
@@ -24,6 +31,7 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
     res.json(comment);
 });
 
+// Get ONE comment
 exports.comment_read = asyncHandler(async (req, res, next) => {
     const comment = await Comment.findById(req.params.id).exec();
   

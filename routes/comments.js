@@ -3,18 +3,13 @@ const router = express.Router();
 
 const commentController = require("../controllers/commentController");
 
-// Placeholder
-// router.get('/', function(req, res, next) {
-//   res.send('Show all Posts');
-// });
-
-// READ all readers
+// READ all comments
 router.get('/', commentController.comment_list);
 
 // CREATE
 router.post('/', commentController.comment_create);
 
-// READ one reader
+// READ one comment
 router.get('/:id', commentController.comment_read);
 
 // UPDATE
