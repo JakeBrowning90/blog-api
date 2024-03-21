@@ -35,7 +35,6 @@ exports.post_read = asyncHandler(async (req, res, next) => {
 exports.post_read_comments = asyncHandler(async (req, res, next) => {
     const comments = await Comment.find({post: req.params.id}).populate('reader').exec();
     // const comments = await Comment.find({ post: req.params.id }).populate('reader').exec();
-    console.log(comments)
     res.json(comments);
 });
 
