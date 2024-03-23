@@ -13,7 +13,7 @@ exports.comment_list = asyncHandler(async (req, res, next) => {
     res.json(allComments);
 });
 
-// Get ALL comments for given post
+// Get ALL comments for given post: moved to postController
 // exports.comment_list = asyncHandler(async (req, res, next) => {
 //     const allComments = await Comment.find().exec();
 //     res.json(allComments);
