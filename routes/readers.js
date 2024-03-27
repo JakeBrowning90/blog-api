@@ -9,10 +9,15 @@ const readerController = require("../controllers/readerController");
 // });
 
 // READ all readers
-router.get('/', readerController.reader_list);
+// router.get('/', readerController.reader_list);
 
-// CREATE
+// CREATE new reader
 router.post('/', readerController.reader_create);
+
+// router.get('/', readerController.reader_list);
+
+// Login
+router.post('/login', readerController.reader_login);
 
 // READ one reader
 router.get('/:id', readerController.reader_read);
