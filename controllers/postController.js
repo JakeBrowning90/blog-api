@@ -1,11 +1,9 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
-
 // const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 // exports.function_name = asyncHandler(async (req, res, next) => {
-
 // });
 
 exports.post_list = asyncHandler(async (req, res, next) => {
@@ -27,14 +25,12 @@ exports.post_create = asyncHandler(async (req, res, next) => {
 
 exports.post_read = asyncHandler(async (req, res, next) => {
     const post = await Post.findById(req.params.id).populate('author').exec();
-  
     res.json(post);
 });
 
 // Get all comments for a given post
 exports.post_read_comments = asyncHandler(async (req, res, next) => {
     const comments = await Comment.find({post: req.params.id}).populate('reader').exec();
-    // const comments = await Comment.find({ post: req.params.id }).populate('reader').exec();
     res.json(comments);
 });
 

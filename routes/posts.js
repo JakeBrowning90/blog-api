@@ -8,16 +8,18 @@ const postController = require("../controllers/postController");
 //   res.send('Show all Posts');
 // });
 
-// READ all posts
+// READ all posts, 
+// Use this for homepage view
 router.get('/', postController.post_list);
 
 // CREATE
 router.post('/', postController.post_create);
 
 // READ one post
+// May not be needed?
 router.get('/:id', postController.post_read);
 
-// READ one post with comments
+// READ one post's comments
 router.get('/:id/comments', postController.post_read_comments);
 
 // UPDATE

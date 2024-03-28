@@ -1,10 +1,8 @@
 const Comment = require("../models/comment");
-
 // const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 // exports.function_name = asyncHandler(async (req, res, next) => {
-
 // });
 
 // Get ALL comments (unneeded?)
@@ -12,12 +10,6 @@ exports.comment_list = asyncHandler(async (req, res, next) => {
     const allComments = await Comment.find().populate('reader').exec();
     res.json(allComments);
 });
-
-// Get ALL comments for given post: moved to postController
-// exports.comment_list = asyncHandler(async (req, res, next) => {
-//     const allComments = await Comment.find().exec();
-//     res.json(allComments);
-// });
 
 exports.comment_create = asyncHandler(async (req, res, next) => {
     const comment = new Comment({

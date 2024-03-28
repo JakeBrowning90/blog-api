@@ -4,6 +4,7 @@ const router = express.Router();
 const commentController = require("../controllers/commentController");
 
 // READ all comments
+// Don't need this route
 router.get('/', commentController.comment_list);
 
 // CREATE
