@@ -3,29 +3,26 @@ const router = express.Router();
 
 const readerController = require("../controllers/readerController");
 
-// Placeholder
-// router.get('/', function(req, res, next) {
-//   res.send('Show all Posts');
-// });
-
 // READ all readers
-// router.get('/', readerController.reader_list);
+// Don't need this for assignment
+router.get('/', readerController.reader_list);
 
-// CREATE new reader
+// CREATE new reader fron registration
 router.post('/', readerController.reader_create);
 
-// router.get('/', readerController.reader_list);
-
-// Login
-router.post('/login', readerController.reader_login);
-
 // READ one reader
+// Nead this for login?
 router.get('/:id', readerController.reader_read);
 
 // UPDATE
+// Don't need this?
 router.put('/:id', readerController.reader_update);
 
 // DELETE
+// Don't need this?
 router.delete('/:id', readerController.reader_delete);
+
+// Login
+router.post('/login', readerController.reader_login);
 
 module.exports = router;

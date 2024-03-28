@@ -3,24 +3,24 @@ const router = express.Router();
 
 const authorController = require("../controllers/authorController");
 
-// Placeholder
-// router.get('/', function(req, res, next) {
-//   res.send('Read Author');
-// });
-
 // READ all authors
-router.get('/', authorController.author_list);
+// Don't need this, only one author
+// router.get('/', authorController.author_list);
 
-// CREATE
+// CREATE author
+// Remove this route after creating author
 router.post('/', authorController.author_create);
 
 // READ one author
+// Don't need this except for login?
 router.get('/:id', authorController.author_read);
 
-// UPDATE
+// UPDATE author
+// Don't need this?
 router.put('/:id', authorController.author_update);
 
-// DELETE
+// DELETE author
+// Don't need this?
 router.delete('/:id', authorController.author_delete);
 
 module.exports = router;
