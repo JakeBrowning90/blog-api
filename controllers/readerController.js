@@ -17,11 +17,12 @@ passport.use(
           console.log("Incorrect user")
            return done(null, false, { message: "Incorrect username" });
         };
-        if (user.password !== password) {
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
           console.log("Incorrect password")
-          return done(null, false, { message: "Incorrect password" });
-        };
-        return done(null, reader);
+          return done(null, false, { message: "Incorrect password" })
+        }
+        return done(null, user);
       } catch(err) {
         return done(err);
       };
@@ -69,8 +70,8 @@ exports.reader_create = asyncHandler(async (req, res, next) => {
 exports.reader_login = [
     // res.json(req.body);
     passport.authenticate("local", {
-      successRedirect: "/",
-      failureRedirect: "/"
+      successRedirect: "/success",
+      failureRedirect: "/failure"
     })
     // await reader.save();
     // res.json(reader);

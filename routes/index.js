@@ -7,4 +7,12 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Blog Backend' });
 });
 
+router.get('/success', function(req, res, next) {
+  res.render('success', { title: 'Success' });
+});
+
+router.get('/failure', function(req, res, next) {
+  res.render('failure', { title: 'Failure' });
+});
+
 module.exports = router;
