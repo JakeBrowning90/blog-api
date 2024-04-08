@@ -9,6 +9,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
+require('./config/passport.js');
+
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -41,15 +43,20 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: process.env.SESSION_SECRET, 
+//Update to include storeSession?
+app.use(session({ 
+  secret: process.env.SESSION_SECRET, 
   resave: false, 
   saveUninitialized: true 
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);

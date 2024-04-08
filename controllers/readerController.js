@@ -5,42 +5,7 @@ const Reader = require("../models/reader");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 
-passport.use(
-    new LocalStrategy(async (username, password, done) => {
-      console.log("Authenticating...")
-      try {
-        const user = await Reader.findOne({ email: username });
-        if (!user) {
-          console.log("Incorrect user")
-           return done(null, false, { message: "Incorrect username" });
-        };
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
-          console.log("Incorrect password")
-          return done(null, false, { message: "Incorrect password" })
-        }
-        return done(null, user);
-      } catch(err) {
-        return done(err);
-      };
-    })
-  );
-
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  
-  passport.deserializeUser(async (id, done) => {
-    try {
-      const user = await Reader.findById(id);
-      done(null, user);
-    } catch(err) {
-      done(err);
-    };
-  });
 // exports.function_name = asyncHandler(async (req, res, next) => {
 
 // });
@@ -67,15 +32,36 @@ exports.reader_create = asyncHandler(async (req, res, next) => {
     }
 });
 
-exports.reader_login = [
-    // res.json(req.body);
-    passport.authenticate("local", {
-      successRedirect: "/success",
-      failureRedirect: "/failure"
-    })
-    // await reader.save();
-    // res.json(reader);
-  ]
+exports.reader_login = asyncHandler(async (req, res, next) => {
+  console.log(req.user);
+  res.json("Logged in!");
+})
+
+
+exports.reader_logout = asyncHandler(async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+        return next(err);
+      }
+  });
+  console.log("Logged out!");
+  res.json("Logged out!");
+})
+
+exports.reader_current = asyncHandler(async (req, res, next) => {
+  if(req.user){
+    res.json(req.user);
+  } else {
+    res.json('No user logged in');
+  }
+})
+
+// exports.reader_login = [
+//   passport.authenticate("local", {
+//     successRedirect: "/success",
+//     failureRedirect: "/failure"
+//   })
+//  ]
 
 exports.reader_read = asyncHandler(async (req, res, next) => {
     const reader = await Reader.findById(req.params.id).exec();
@@ -99,4 +85,8 @@ exports.reader_update = asyncHandler(async (req, res, next) => {
 exports.reader_delete = asyncHandler(async (req, res, next) => {
     await Reader.findByIdAndDelete(req.params.id);
     res.json('Deleted Reader');
+});
+
+exports.reader_protected = asyncHandler(async (req, res, next) => {
+  res.json('Protected content');
 });
