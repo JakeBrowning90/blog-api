@@ -5,6 +5,7 @@ const Reader = require("../models/reader");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // exports.function_name = asyncHandler(async (req, res, next) => {
 
@@ -33,8 +34,14 @@ exports.reader_create = asyncHandler(async (req, res, next) => {
 });
 
 exports.reader_login = asyncHandler(async (req, res, next) => {
-  console.log(req.user);
-  res.json("Logged in!");
+  // console.log(req.user);
+  res.json(req.user);
+   
+  // jwt.sign({user: req.user}, process.env.SECRET_KEY, (err, token) => {
+  //   res.json({
+  //     token: token
+  //   });
+  // });
 })
 
 
