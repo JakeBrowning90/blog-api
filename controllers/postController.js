@@ -34,6 +34,7 @@ exports.post_read_comments = asyncHandler(async (req, res, next) => {
     res.json(comments);
 });
 
+// Include last updated field?
 exports.post_update = asyncHandler(async (req, res, next) => {
     const post = new Post({
         title: req.body.title,
