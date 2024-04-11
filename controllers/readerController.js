@@ -16,22 +16,44 @@ exports.reader_list = asyncHandler(async (req, res, next) => {
     res.json(allReaders);
 });
 
-exports.reader_create = asyncHandler(async (req, res, next) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const reader = new Reader({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: hashedPassword,
-            is_admin: false,
-        });
+exports.reader_create = [
+  body("email")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Email required")
+    .isEmail()
+    .withMessage("Invalid email address")
+    .isLength({ max: 30 })
+    .withMessage("Email must not exceed 30 characters")
+    .custom(async value =>{
+        const existingReader = await Reader.findOne({ email: value });
+        if (existingReader) {
+            throw new Error('Email already in use.')
+        }
+    }),
+  asyncHandler(async (req, res, next) => {
+
+      const errors = validationResult(req);
+
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      const reader = new Reader({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          email: req.body.email,
+          password: hashedPassword,
+          is_admin: false,
+      });
+
+      if (!errors.isEmpty()) {
+        res.json(errors);
+      } else {
         await reader.save();
-        res.json(reader)
-    } catch {
-        res.json({message: "Error: Reader not created"})
-    }
-});
+        res.json(reader);
+      } 
+
+
+  }) 
+];
 
 exports.reader_login = asyncHandler(async (req, res, next) => {
   // console.log(req.user);

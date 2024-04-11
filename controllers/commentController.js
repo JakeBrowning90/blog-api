@@ -15,7 +15,7 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
     const comment = new Comment({
         // TODO
         body: req.body.body,
-        timestamp:  Date.now(),
+        timestamp: Date.now(),
         reader: req.body.reader,
         post: req.body.post,
     });
