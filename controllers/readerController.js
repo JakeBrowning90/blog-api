@@ -1,7 +1,6 @@
 require('dotenv').config();
 const Reader = require("../models/reader");
 
-// const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
@@ -32,7 +31,6 @@ exports.reader_create = [
         }
     }),
   asyncHandler(async (req, res, next) => {
-
       const errors = validationResult(req);
 
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -45,7 +43,8 @@ exports.reader_create = [
       });
 
       if (!errors.isEmpty()) {
-        res.json(errors);
+        console.log(errors.array())
+        res.json(errors.array());
       } else {
         await reader.save();
         res.json(reader);
