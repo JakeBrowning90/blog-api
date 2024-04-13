@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ReaderSchema = new Schema({
-    first_name: { type: String },
-    last_name: { type: String },
-    email: { type: String },
+    first_name: { type: String, maxLength: 20 },
+    last_name: { type: String, maxLength: 20 },
+    email: { type: String, maxLength: 30 },
     password: { type: String },
     // is_admin: { type: Boolean }
 }, {toJSON: { virtuals: true }});

@@ -16,6 +16,18 @@ exports.reader_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.reader_create = [
+  body("first_name")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("First name required")
+    .isLength({ max: 20 })
+    .withMessage("First name must not exceed 20 characters"),
+  body("last_name")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Last name required")
+    .isLength({ max: 20 })
+    .withMessage("Last name must not exceed 20 characters"),
   body("email")
     .trim()
     .isLength({ min: 1 })
