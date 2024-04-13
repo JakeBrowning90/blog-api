@@ -30,6 +30,17 @@ exports.reader_create = [
             throw new Error('Email already in use.')
         }
     }),
+  body("password")
+    .trim()
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Password must be between 8 and 20 characters."),
+  body("confirm_password")
+    .custom((value, { req }) => {
+        return value === req.body.password;
+    })
+    .withMessage("Typed passwords do not match"),
+    
+
   asyncHandler(async (req, res, next) => {
       const errors = validationResult(req);
 
@@ -39,7 +50,7 @@ exports.reader_create = [
           last_name: req.body.last_name,
           email: req.body.email,
           password: hashedPassword,
-          is_admin: false,
+          // is_admin: false,
       });
 
       if (!errors.isEmpty()) {
@@ -49,8 +60,6 @@ exports.reader_create = [
         await reader.save();
         res.json(reader);
       } 
-
-
   }) 
 ];
 

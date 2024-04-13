@@ -6,7 +6,7 @@ const ReaderSchema = new Schema({
     last_name: { type: String },
     email: { type: String },
     password: { type: String },
-    is_admin: { type: Boolean }
+    // is_admin: { type: Boolean }
 }, {toJSON: { virtuals: true }});
 
 ReaderSchema.virtual("full_name").get(function () {
