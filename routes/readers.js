@@ -25,7 +25,12 @@ router.put('/:id', readerController.reader_update);
 router.delete('/:id', readerController.reader_delete);
 
 // Login
-router.post('/login', passport.authenticate('local'), readerController.reader_login);
+router.post('/login', 
+    passport.authenticate('local', {
+        failureMessage: true
+    }), 
+    readerController.reader_login
+);
 
 //TEST logout
 router.post('/logout', readerController.reader_logout);
