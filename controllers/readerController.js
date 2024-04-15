@@ -76,20 +76,19 @@ exports.reader_create = [
 ];
 
 exports.reader_login = asyncHandler(async (req, res, next) => {
-  console.log(req.session);
-  if (req.user) {
-    res.json(req.user);
-  } else {
-    res.json(req.session);
-  }
+  // console.log(req.session);
+  // if (req.user) {
+  //   res.json(req.user);
+  // } else {
+  //   res.json(req.session);
+  // }
    
-  // jwt.sign({user: req.user}, process.env.SECRET_KEY, (err, token) => {
-  //   res.json({
-  //     token: token
-  //   });
-  // });
+  jwt.sign({user: req.user}, process.env.SECRET_KEY, (err, token) => {
+    res.json({
+      token: token
+    });
+  });
 })
-
 
 exports.reader_logout = asyncHandler(async (req, res, next) => {
   req.logout((err) => {

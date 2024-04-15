@@ -1,6 +1,7 @@
 const Comment = require("../models/comment");
 // const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
 
 // exports.function_name = asyncHandler(async (req, res, next) => {
 // });
@@ -12,15 +13,21 @@ exports.comment_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.comment_create = asyncHandler(async (req, res, next) => {
-    const comment = new Comment({
-        // TODO
-        body: req.body.body,
-        timestamp: Date.now(),
-        reader: req.body.reader,
-        post: req.body.post,
-    });
-    await comment.save();
-    res.json(comment);
+     jwt.verify(req.token, 'secretword', async (err, authData) => {
+        if (err) {
+            res.sendStatus(403);
+        } else {
+            const comment = new Comment({
+                // TODO
+                body: req.body.body,
+                timestamp: Date.now(),
+                reader: req.body.reader,
+                post: req.body.post,
+            });
+            await comment.save();
+            res.json(comment);
+        }
+    })
 });
 
 // Get ONE comment
