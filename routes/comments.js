@@ -5,16 +5,22 @@ const router = express.Router();
 const commentController = require("../controllers/commentController");
 
 function verifyToken(req, res, next) {
+    console.log(req.headers);
+
     // get auth header value
     const bearerHeader = req.headers['authorization'];
+    // console.log(bearerHeader);
+
     if (typeof bearerHeader !== 'undefined') {
-        const bearer = bearerHeader.split(' ');
-        const bearerToken = bearer[1];
-        req.token = bearerToken;
+        // const bearer = bearerHeader.split(' ');
+        // const bearerToken = bearer[1];
+        // req.token = bearerToken;
+        req.token = bearerHeader;
+
         next();
     } else {
-    //   res.sendStatus(403);
-      res.json({message: 'Login required'})
+      res.sendStatus(403);
+      // res.json({message: 'Login required'})
     }
   } 
 

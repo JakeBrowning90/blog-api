@@ -13,7 +13,7 @@ exports.comment_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.comment_create = asyncHandler(async (req, res, next) => {
-     jwt.verify(req.token, 'secretword', async (err, authData) => {
+    jwt.verify(req.token, 'secretword', async (err, authData) => {
         if (err) {
             res.sendStatus(403);
         } else {

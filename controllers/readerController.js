@@ -78,9 +78,12 @@ exports.reader_create = [
 exports.reader_login = asyncHandler(async (req, res, next) => {
 
   // console.log(req.session);
-  jwt.sign({user: req.user}, process.env.SECRET_KEY, (err, token) => {
+  jwt.sign({user: req.user}, process.env.SECRET_KEY, { expiresIn: '10m' }, (err, token) => {
     res.json({
-      token: token
+      full_name: req.user.full_name,
+      id: req.user._id,
+      // Add "Bearer"
+      token: token,
     });
   });
 })
