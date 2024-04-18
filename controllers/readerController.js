@@ -76,13 +76,9 @@ exports.reader_create = [
 ];
 
 exports.reader_login = asyncHandler(async (req, res, next) => {
-  // console.log(req.session);
-  // if (req.user) {
-  //   res.json(req.user);
-  // } else {
-  //   res.json(req.session);
-  // }
-   
+
+  console.log(req.session);
+
   jwt.sign({user: req.user}, process.env.SECRET_KEY, (err, token) => {
     res.json({
       token: token
@@ -100,6 +96,7 @@ exports.reader_logout = asyncHandler(async (req, res, next) => {
   res.json("Logged out!");
 })
 
+// Testing route
 exports.reader_current = asyncHandler(async (req, res, next) => {
   if(req.user){
     res.json(req.user);
@@ -107,13 +104,6 @@ exports.reader_current = asyncHandler(async (req, res, next) => {
     res.json('No user logged in');
   }
 })
-
-// exports.reader_login = [
-//   passport.authenticate("local", {
-//     successRedirect: "/success",
-//     failureRedirect: "/failure"
-//   })
-//  ]
 
 exports.reader_read = asyncHandler(async (req, res, next) => {
     const reader = await Reader.findById(req.params.id).exec();
