@@ -77,8 +77,7 @@ exports.reader_create = [
 
 exports.reader_login = asyncHandler(async (req, res, next) => {
 
-  console.log(req.session);
-
+  // console.log(req.session);
   jwt.sign({user: req.user}, process.env.SECRET_KEY, (err, token) => {
     res.json({
       token: token
