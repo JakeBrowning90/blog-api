@@ -14,6 +14,7 @@ exports.post_list = asyncHandler(async (req, res, next) => {
 exports.post_create = asyncHandler(async (req, res, next) => {
     const post = new Post({
         title: req.body.title,
+        subtitle: req.body.subtitle,
         body: req.body.body,
         author: req.body.author,
         timestamp:  Date.now(),
@@ -38,6 +39,7 @@ exports.post_read_comments = asyncHandler(async (req, res, next) => {
 exports.post_update = asyncHandler(async (req, res, next) => {
     const post = new Post({
         title: req.body.title,
+        subtitle: req.body.subtitle,
         body: req.body.body,
         author: req.body.author,
         timestamp:  Date.now(),

@@ -82,7 +82,7 @@ exports.reader_login = asyncHandler(async (req, res, next) => {
     res.json({
       full_name: req.user.full_name,
       id: req.user._id,
-      // Add "Bearer"
+      // Add "Bearer"?
       token: token,
     });
   });

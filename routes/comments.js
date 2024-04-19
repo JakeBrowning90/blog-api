@@ -5,7 +5,8 @@ const router = express.Router();
 const commentController = require("../controllers/commentController");
 
 function verifyToken(req, res, next) {
-    console.log(req.headers);
+    // console.log(req);
+    // console.log(req.headers);
 
     // get auth header value
     const bearerHeader = req.headers['authorization'];

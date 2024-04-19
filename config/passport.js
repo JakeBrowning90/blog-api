@@ -6,7 +6,7 @@ const Reader = require("../models/reader");
 
 passport.use(
     new LocalStrategy(async function verify(username, password, done) {
-      console.log("Authenticating...")
+      // console.log("Authenticating...")
       try {
         const user = await Reader.findOne({ email: username });
         if (!user) {
