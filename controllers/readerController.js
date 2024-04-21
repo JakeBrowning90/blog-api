@@ -45,7 +45,7 @@ exports.reader_create = [
   body("password")
     .trim()
     .isLength({ min: 8, max: 20 })
-    .withMessage("Password must be between 8 and 20 characters."),
+    .withMessage("Password must be between 8 and 20 characters"),
   body("confirm_password")
     .custom((value, { req }) => {
         return value === req.body.password;
@@ -66,7 +66,6 @@ exports.reader_create = [
       });
 
       if (!errors.isEmpty()) {
-        console.log(errors.array())
         res.json(errors.array());
       } else {
         await reader.save();
@@ -76,8 +75,6 @@ exports.reader_create = [
 ];
 
 exports.reader_login = asyncHandler(async (req, res, next) => {
-
-  // console.log(req.session);
   jwt.sign({user: req.user}, process.env.SECRET_KEY, { expiresIn: '30m' }, (err, token) => {
     res.json({
       full_name: req.user.full_name,
@@ -94,7 +91,6 @@ exports.reader_logout = asyncHandler(async (req, res, next) => {
         return next(err);
       }
   });
-  console.log("Logged out!");
   res.json("Logged out!");
 })
 

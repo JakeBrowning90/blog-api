@@ -10,7 +10,7 @@ function verifyToken(req, res, next) {
 
     // get auth header value
     const bearerHeader = req.headers['authorization'];
-    // console.log(bearerHeader);
+    console.log(bearerHeader);
 
     if (typeof bearerHeader !== 'undefined') {
         // const bearer = bearerHeader.split(' ');
@@ -33,12 +33,12 @@ router.get('/', commentController.comment_list);
 router.post('/', verifyToken, commentController.comment_create);
 
 // READ one comment
-router.get('/:id', commentController.comment_read);
+router.get('/:id', verifyToken, commentController.comment_read);
 
 // UPDATE
 router.put('/:id', commentController.comment_update);
 
 // DELETE
-router.delete('/:id', commentController.comment_delete);
+router.delete('/:id', verifyToken, commentController.comment_delete);
 
 module.exports = router;

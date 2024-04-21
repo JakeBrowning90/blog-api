@@ -32,9 +32,14 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
 
 // Get ONE comment
 exports.comment_read = asyncHandler(async (req, res, next) => {
-    const comment = await Comment.findById(req.params.id).exec();
-  
-    res.json(comment);
+    jwt.verify(req.token, 'secretword', async (err, authData) => {
+        if (err) {
+            res.sendStatus(403);
+        } else {
+            const comment = await Comment.findById(req.params.id).populate('reader').exec();
+            res.json(comment);
+        }
+    })
 });
 
 exports.comment_update = asyncHandler(async (req, res, next) => {
@@ -45,14 +50,17 @@ exports.comment_update = asyncHandler(async (req, res, next) => {
         post: req.body.post,
         _id: req.params.id,
     });
-
     await Comment.findByIdAndUpdate(req.params.id, comment);
-
     res.json(comment);
 });
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {
-    await Comment.findByIdAndDelete(req.params.id);
-
-    res.json('Deleted comment');
+    jwt.verify(req.token, 'secretword', async (err, authData) => {
+        if (err) {
+            res.sendStatus(403);
+        } else {
+            await Comment.findByIdAndDelete(req.params.id);
+            res.json('Deleted comment');
+        }
+    })
 });
