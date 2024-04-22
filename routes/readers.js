@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const passport = require("passport");
-// const LocalStrategy = require("passport-local").Strategy;
 
 const readerController = require("../controllers/readerController");
-
-// READ all readers
-// Don't need this for assignment
-router.get('/', readerController.reader_list);
 
 // CREATE new reader fron registration
 router.post('/', readerController.reader_create);

@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const passport = require("passport");
 
 const authorController = require("../controllers/authorController");
-
-// READ all authors
-// Don't need this, only one author
-// router.get('/', authorController.author_list);
 
 // CREATE author
 // Remove this route after creating author
@@ -22,5 +19,13 @@ router.put('/:id', authorController.author_update);
 // DELETE author
 // Don't need this?
 router.delete('/:id', authorController.author_delete);
+
+// Login
+router.post('/login', 
+    passport.authenticate('local', {
+        
+    }), 
+    authorController.author_login
+);
 
 module.exports = router;
