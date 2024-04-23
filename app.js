@@ -16,9 +16,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
 const indexRouter = require('./routes/index');
-const authorsRouter = require('./routes/authors');
+const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
-const readersRouter = require('./routes/readers');
 const commentsRouter = require('./routes/comments');
 
 const app = express();
@@ -60,9 +59,8 @@ app.use(passport.initialize());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
-app.use('/authors', authorsRouter);
+app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
-app.use('/readers', readersRouter);
 app.use('/comments', commentsRouter);
 
 // catch 404 and forward to error handler

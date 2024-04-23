@@ -1,5 +1,5 @@
 require('dotenv').config();
-const Reader = require("../models/reader");
+const User = require("../models/user");
 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
@@ -10,12 +10,12 @@ const jwt = require("jsonwebtoken");
 
 // });
 
-exports.reader_list = asyncHandler(async (req, res, next) => {
-    const allReaders = await Reader.find().exec();
-    res.json(allReaders);
+exports.user_list = asyncHandler(async (req, res, next) => {
+    const allUsers = await User.find().exec();
+    res.json(allUsers);
 });
 
-exports.reader_create = [
+exports.user_create = [
   body("first_name")
     .trim()
     .isLength({ min: 1 })
@@ -37,8 +37,8 @@ exports.reader_create = [
     .isLength({ max: 30 })
     .withMessage("Email must not exceed 30 characters")
     .custom(async value =>{
-        const existingReader = await Reader.findOne({ email: value });
-        if (existingReader) {
+        const existingUser = await User.findOne({ email: value });
+        if (existingUser) {
             throw new Error('Email already in use.')
         }
     }),
@@ -57,24 +57,24 @@ exports.reader_create = [
       const errors = validationResult(req);
 
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      const reader = new Reader({
+      const user = new User({
           first_name: req.body.first_name,
           last_name: req.body.last_name,
           email: req.body.email,
           password: hashedPassword,
-          // is_admin: false,
+          isAuthor: false,
       });
 
       if (!errors.isEmpty()) {
         res.json(errors.array());
       } else {
-        await reader.save();
-        res.json(reader);
+        await user.save();
+        res.json(user);
       } 
   }) 
 ];
 
-exports.reader_login = asyncHandler(async (req, res, next) => {
+exports.user_login = asyncHandler(async (req, res, next) => {
   jwt.sign({user: req.user}, process.env.SECRET_KEY, { expiresIn: '30m' }, (err, token) => {
     res.json({
       full_name: req.user.full_name,
@@ -85,7 +85,7 @@ exports.reader_login = asyncHandler(async (req, res, next) => {
   });
 })
 
-exports.reader_logout = asyncHandler(async (req, res, next) => {
+exports.user_logout = asyncHandler(async (req, res, next) => {
   req.logout((err) => {
     if (err) {
         return next(err);
@@ -95,7 +95,7 @@ exports.reader_logout = asyncHandler(async (req, res, next) => {
 })
 
 // Testing route
-exports.reader_current = asyncHandler(async (req, res, next) => {
+exports.user_current = asyncHandler(async (req, res, next) => {
   if(req.user){
     res.json(req.user);
   } else {
@@ -103,30 +103,30 @@ exports.reader_current = asyncHandler(async (req, res, next) => {
   }
 })
 
-exports.reader_read = asyncHandler(async (req, res, next) => {
-    const reader = await Reader.findById(req.params.id).exec();
-    res.json(reader);
+exports.user_read = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.params.id).exec();
+    res.json(user);
 });
 
-exports.reader_update = asyncHandler(async (req, res, next) => {
-    const reader = new Reader({
+exports.user_update = asyncHandler(async (req, res, next) => {
+    const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password,
-        is_admin: false,
+        isAuthor: true,
         _id: req.params.id,
       });
     
-      await Reader.findByIdAndUpdate(req.params.id, reader);
-      res.json(reader);
+      await User.findByIdAndUpdate(req.params.id, user);
+      res.json(user);
 });
 
-exports.reader_delete = asyncHandler(async (req, res, next) => {
-    await Reader.findByIdAndDelete(req.params.id);
+exports.user_delete = asyncHandler(async (req, res, next) => {
+    await User.findByIdAndDelete(req.params.id);
     res.json('Deleted Reader');
 });
 
-exports.reader_protected = asyncHandler(async (req, res, next) => {
+exports.user_protected = asyncHandler(async (req, res, next) => {
   res.json('Protected content');
 });

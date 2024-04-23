@@ -2,12 +2,12 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
-const Reader = require("../models/reader");
+const User = require("../models/user");
 
 passport.use(
     new LocalStrategy(async function verify(username, password, done) {
       try {
-        const user = await Reader.findOne({ email: username });
+        const user = await User.findOne({ email: username });
         if (!user) {
           return done(null, false, { message: "Incorrect email" });
         };

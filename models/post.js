@@ -7,7 +7,7 @@ const PostSchema = new Schema({
     body: { type: String, required: true  },
     timestamp: { type: Date , default: Date.now,},
     is_published: { type: Boolean },
-    author: { type: Schema.Types.ObjectId, ref:"Author", required: true  }
+    user: { type: Schema.Types.ObjectId, ref:"User", required: true  }
 }, {toJSON: { virtuals: true }});
 
 PostSchema.virtual("url").get(function () {
