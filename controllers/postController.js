@@ -7,7 +7,7 @@ const asyncHandler = require("express-async-handler");
 // });
 
 exports.post_list = asyncHandler(async (req, res, next) => {
-    const allPosts = await Post.find().sort({ timestamp: -1 }).populate('author').exec();
+    const allPosts = await Post.find().sort({ timestamp: -1 }).populate('user').exec();
     res.json(allPosts);
 });
 
@@ -16,7 +16,7 @@ exports.post_create = asyncHandler(async (req, res, next) => {
         title: req.body.title,
         subtitle: req.body.subtitle,
         body: req.body.body,
-        author: req.body.author,
+        user: req.body.user,
         timestamp:  Date.now(),
         is_published: false, 
     });
@@ -25,13 +25,13 @@ exports.post_create = asyncHandler(async (req, res, next) => {
 });
 
 exports.post_read = asyncHandler(async (req, res, next) => {
-    const post = await Post.findById(req.params.id).populate('author').exec();
+    const post = await Post.findById(req.params.id).populate('user').exec();
     res.json(post);
 });
 
 // Get all comments for a given post
 exports.post_read_comments = asyncHandler(async (req, res, next) => {
-    const comments = await Comment.find({post: req.params.id}).populate('reader').exec();
+    const comments = await Comment.find({post: req.params.id}).populate('user').exec();
     res.json(comments);
 });
 
