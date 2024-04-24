@@ -7,18 +7,25 @@ const asyncHandler = require("express-async-handler");
 // });
 
 exports.post_list = asyncHandler(async (req, res, next) => {
+    const allPosts = await Post.find({is_published: true}).sort({ timestamp: -1 }).populate('user').exec();
+    res.json(allPosts);
+});
+
+exports.post_list_all = asyncHandler(async (req, res, next) => {
     const allPosts = await Post.find().sort({ timestamp: -1 }).populate('user').exec();
     res.json(allPosts);
 });
 
 exports.post_create = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
+
     const post = new Post({
         title: req.body.title,
         subtitle: req.body.subtitle,
         body: req.body.body,
         user: req.body.user,
         timestamp:  Date.now(),
-        is_published: false, 
+        is_published: req.body.is_published, 
     });
     await post.save();
     res.json(post);

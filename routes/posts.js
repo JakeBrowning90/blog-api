@@ -12,6 +12,8 @@ const postController = require("../controllers/postController");
 // Use this for homepage view
 router.get('/', postController.post_list);
 
+router.get('/all', postController.post_list_all);
+
 // CREATE
 router.post('/', postController.post_create);
 

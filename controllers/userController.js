@@ -75,7 +75,7 @@ exports.user_create = [
 ];
 
 exports.user_login = asyncHandler(async (req, res, next) => {
-  jwt.sign({user: req.user}, process.env.SECRET_KEY, { expiresIn: '1m' }, (err, token) => {
+  jwt.sign({user: req.user}, process.env.SECRET_KEY, { expiresIn: '30m' }, (err, token) => {
     res.json({
       full_name: req.user.full_name,
       id: req.user._id,
