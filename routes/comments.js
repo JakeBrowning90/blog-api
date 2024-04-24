@@ -10,7 +10,7 @@ function verifyToken(req, res, next) {
 
     // get auth header value
     const bearerHeader = req.headers['authorization'];
-    console.log(bearerHeader);
+    // console.log(bearerHeader);
 
     if (typeof bearerHeader !== 'undefined') {
         // const bearer = bearerHeader.split(' ');

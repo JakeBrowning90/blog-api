@@ -21,7 +21,7 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
                 // TODO
                 body: req.body.body,
                 timestamp: Date.now(),
-                reader: req.body.reader,
+                user: req.body.user,
                 post: req.body.post,
             });
             await comment.save();
@@ -36,7 +36,7 @@ exports.comment_read = asyncHandler(async (req, res, next) => {
         if (err) {
             res.sendStatus(403);
         } else {
-            const comment = await Comment.findById(req.params.id).populate('reader').exec();
+            const comment = await Comment.findById(req.params.id).populate('user').exec();
             res.json(comment);
         }
     })
