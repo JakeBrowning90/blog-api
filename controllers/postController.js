@@ -50,7 +50,7 @@ exports.post_update = asyncHandler(async (req, res, next) => {
         body: req.body.body,
         author: req.body.author,
         timestamp:  Date.now(),
-        is_published: false, 
+        is_published: req.body.is_published, 
         _id: req.params.id,
     });
 
