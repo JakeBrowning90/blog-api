@@ -33,6 +33,9 @@ exports.post_create = asyncHandler(async (req, res, next) => {
 
 exports.post_read = asyncHandler(async (req, res, next) => {
     const post = await Post.findById(req.params.id).populate('user').exec();
+    if (post == null) {
+        res.sendStatus(404);
+    }
     res.json(post);
 });
 

@@ -32,7 +32,7 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
 
 // Get ONE comment
 exports.comment_read = asyncHandler(async (req, res, next) => {
-    jwt.verify(req.token, 'secretword', async (err, authData) => {
+    jwt.verify(req.token, 'secretword', async (err) => {
         if (err) {
             res.sendStatus(403);
         } else {
