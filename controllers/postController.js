@@ -1,6 +1,6 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
-// const { body, validationResult } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 exports.post_list = asyncHandler(async (req, res, next) => {
@@ -12,6 +12,48 @@ exports.post_list_all = asyncHandler(async (req, res, next) => {
     const allPosts = await Post.find().sort({ timestamp: -1 }).populate('user').exec();
     res.json(allPosts);
 });
+
+
+exports.post_create = [
+    body("title")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Title cannot be blank")
+        .isLength({ max: 100 })
+        .withMessage("Title must not exceed 100 characters"),
+    body("subtitle")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Subtitle cannot be blank")
+        .isLength({ max: 100 })
+        .withMessage("Subtitle must not exceed 100 characters"),
+    body("body")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Body cannot be blank")
+        .isLength({ max: 12000 })
+        .withMessage("Body must not exceed 12000 characters"),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        const post = new Post({
+            title: req.body.title,
+            subtitle: req.body.subtitle,
+            body: req.body.body,
+            user: req.body.user,
+            timestamp:  Date.now(),
+            is_published: req.body.is_published, 
+        });
+        
+        if (!errors.isEmpty()) {
+            res.json(errors.array());
+        } else {
+            await post.save();
+            res.json(post);
+        }
+    })
+]
 
 exports.post_create = asyncHandler(async (req, res, next) => {
 
