@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
-// const passport = require("passport");
-
 const commentController = require("../controllers/commentController");
 
 function verifyToken(req, res, next) {
-    // console.log(req);
     // console.log(req.headers);
-
     // get auth header value
     const bearerHeader = req.headers['authorization'];
     // console.log(bearerHeader);

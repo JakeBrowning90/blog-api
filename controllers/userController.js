@@ -79,6 +79,7 @@ exports.user_login = asyncHandler(async (req, res, next) => {
     res.json({
       full_name: req.user.full_name,
       id: req.user._id,
+      isAuthor: req.user.isAuthor,
       // Add "Bearer"?
       token: token,
     });

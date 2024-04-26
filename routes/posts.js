@@ -1,17 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
 const postController = require("../controllers/postController");
 
-// Placeholder
-// router.get('/', function(req, res, next) {
-//   res.send('Show all Posts');
-// });
-
 // READ all posts, 
-// Use this for homepage view
+// Get PUBLISHED posts
 router.get('/', postController.post_list);
-
+// Get ALL posts
 router.get('/all', postController.post_list_all);
 
 // CREATE
