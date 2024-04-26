@@ -63,3 +63,9 @@ exports.post_delete = asyncHandler(async (req, res, next) => {
 
     res.json('Deleted post');
 });
+
+exports.post_comments_delete = asyncHandler(async (req, res, next) => {
+    await Comment.deleteMany({post: req.params.id});
+
+    res.json('Deleted post comments');
+});
