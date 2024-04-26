@@ -14,7 +14,6 @@ exports.post_list_all = asyncHandler(async (req, res, next) => {
 });
 
 exports.post_create = asyncHandler(async (req, res, next) => {
-    console.log(req.body);
 
     const post = new Post({
         title: req.body.title,
