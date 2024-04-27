@@ -8,6 +8,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const helmet = require("helmet");
 
 require('./config/passport.js');
 
@@ -52,6 +53,14 @@ app.use(session({
   resave: false, 
   saveUninitialized: true 
 }));
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
 
 app.use(passport.initialize());
 // app.use(passport.session());
