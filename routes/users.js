@@ -15,8 +15,8 @@ router.get('/:id', userController.user_read);
 router.put('/:id', userController.user_update);
 
 // DELETE
-// Don't need this?
-router.delete('/:id', userController.user_delete);
+// Don't need this now?
+// router.delete('/:id', userController.user_delete);
 
 // Login
 router.post('/login', 
@@ -27,12 +27,12 @@ router.post('/login',
 );
 
 //TEST logout
-router.post('/logout', userController.user_logout);
+// router.post('/logout', userController.user_logout);
 
 //TEST show logged in user
-router.post('/current', userController.user_current);
+// router.post('/current', userController.user_current);
 
 //TEST ROUTE for JWT
-router.post('/protected', userController.user_protected);
+// router.post('/protected', userController.user_protected);
 
 module.exports = router;

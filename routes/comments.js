@@ -1,40 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const commentController = require("../controllers/commentController");
-
-function verifyToken(req, res, next) {
-    // console.log(req.headers);
-    // get auth header value
-    const bearerHeader = req.headers['authorization'];
-    // console.log(bearerHeader);
-
-    if (typeof bearerHeader !== 'undefined') {
-        // const bearer = bearerHeader.split(' ');
-        // const bearerToken = bearer[1];
-        // req.token = bearerToken;
-        req.token = bearerHeader;
-
-        next();
-    } else {
-      res.sendStatus(403);
-      // res.json({message: 'Login required'})
-    }
-  } 
+middlewares = require("../config/middlewares")
 
 // READ all comments
-// Don't need this route
+// Don't need this route?
 router.get('/', commentController.comment_list);
 
 // CREATE
-router.post('/', verifyToken, commentController.comment_create);
+router.post('/', middlewares.verifyToken, commentController.comment_create);
 
 // READ one comment
-router.get('/:id', verifyToken, commentController.comment_read);
+router.get('/:id', middlewares.verifyToken, commentController.comment_read);
 
 // UPDATE
 router.put('/:id', commentController.comment_update);
 
 // DELETE
-router.delete('/:id', verifyToken, commentController.comment_delete);
+router.delete('/:id', middlewares.verifyToken, commentController.comment_delete);
 
 module.exports = router;

@@ -123,11 +123,11 @@ exports.user_update = asyncHandler(async (req, res, next) => {
       res.json(user);
 });
 
-exports.user_delete = asyncHandler(async (req, res, next) => {
-    await User.findByIdAndDelete(req.params.id);
-    res.json('Deleted Reader');
-});
+// exports.user_delete = asyncHandler(async (req, res, next) => {
+//     await User.findByIdAndDelete(req.params.id);
+//     res.json('Deleted Reader');
+// });
 
-exports.user_protected = asyncHandler(async (req, res, next) => {
-  res.json('Protected content');
-});
+// exports.user_protected = asyncHandler(async (req, res, next) => {
+//   res.json('Protected content');
+// });
