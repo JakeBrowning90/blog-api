@@ -1,15 +1,12 @@
 module.exports = {
     verifyToken: function(req, res, next) {
-        // console.log(req.headers);
         // get auth header value
-        const bearerHeader = req.headers['authorization'];
-        // console.log(bearerHeader);
-    
+        const bearerHeader = req.headers['authorization'];    
+        // Separate token from 'Bearer ' header
         if (typeof bearerHeader !== 'undefined') {
-            // const bearer = bearerHeader.split(' ');
-            // const bearerToken = bearer[1];
-            // req.token = bearerToken;
-            req.token = bearerHeader;
+            const bearer = bearerHeader.split(' ');
+            const bearerToken = bearer[1];
+            req.token = bearerToken;
     
             next();
         } else {
