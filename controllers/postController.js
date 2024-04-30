@@ -4,12 +4,12 @@ const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 exports.post_list = asyncHandler(async (req, res, next) => {
-    const allPosts = await Post.find({is_published: true}).sort({ timestamp: -1 }).populate('user').exec();
+    const allPosts = await Post.find({is_published: true}).sort({ createdAt: -1 }).populate('user').exec();
     res.json(allPosts);
 });
 
 exports.post_list_all = asyncHandler(async (req, res, next) => {
-    const allPosts = await Post.find().sort({ timestamp: -1 }).populate('user').exec();
+    const allPosts = await Post.find().sort({ createdAt: -1 }).populate('user').exec();
     res.json(allPosts);
 });
 
@@ -42,7 +42,7 @@ exports.post_create = [
             subtitle: req.body.subtitle,
             body: req.body.body,
             user: req.body.user,
-            timestamp:  Date.now(),
+            // timestamp:  Date.now(),
             is_published: req.body.is_published, 
         });
         
@@ -55,20 +55,7 @@ exports.post_create = [
     })
 ]
 
-exports.post_create = asyncHandler(async (req, res, next) => {
-
-    const post = new Post({
-        title: req.body.title,
-        subtitle: req.body.subtitle,
-        body: req.body.body,
-        user: req.body.user,
-        timestamp:  Date.now(),
-        is_published: req.body.is_published, 
-    });
-    await post.save();
-    res.json(post);
-});
-
+// Get a single post
 exports.post_read = asyncHandler(async (req, res, next) => {
     const post = await Post.findById(req.params.id).populate('user').exec();
     if (post == null) {
@@ -83,14 +70,14 @@ exports.post_read_comments = asyncHandler(async (req, res, next) => {
     res.json(comments);
 });
 
-// Include last updated field?
+// Update a post (createdAt timestamp stays the same)
 exports.post_update = asyncHandler(async (req, res, next) => {
     const post = new Post({
         title: req.body.title,
         subtitle: req.body.subtitle,
         body: req.body.body,
         author: req.body.author,
-        timestamp:  Date.now(),
+        // timestamp:  Date.now(),
         is_published: req.body.is_published, 
         _id: req.params.id,
     });
