@@ -6,6 +6,9 @@ const userController = require("../controllers/userController");
 // CREATE new user fron registration
 router.post('/', userController.user_create);
 
+// Test
+router.get('/', userController.user_list);
+
 // READ one user
 // Need this for login?
 router.get('/:id', userController.user_read);
@@ -22,6 +25,7 @@ router.put('/:id', userController.user_update);
 router.post('/login', 
     passport.authenticate('local', {
         // failureMessage: true
+        session: false
     }), 
     userController.user_login
 );
@@ -30,9 +34,9 @@ router.post('/login',
 // router.post('/logout', userController.user_logout);
 
 //TEST show logged in user
-// router.post('/current', userController.user_current);
+router.post('/current', userController.user_current);
 
 //TEST ROUTE for JWT
-// router.post('/protected', userController.user_protected);
+router.post('/protected', userController.user_protected);
 
 module.exports = router;

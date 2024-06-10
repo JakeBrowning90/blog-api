@@ -97,11 +97,12 @@ exports.user_logout = asyncHandler(async (req, res, next) => {
 
 // Testing route
 exports.user_current = asyncHandler(async (req, res, next) => {
-  if(req.user){
-    res.json(req.user);
+  if(req.session){
+    res.json(req.session);
   } else {
     res.json('No user logged in');
   }
+  // res.json('Checking current user');
 })
 
 exports.user_read = asyncHandler(async (req, res, next) => {
@@ -128,6 +129,6 @@ exports.user_update = asyncHandler(async (req, res, next) => {
 //     res.json('Deleted Reader');
 // });
 
-// exports.user_protected = asyncHandler(async (req, res, next) => {
-//   res.json('Protected content');
-// });
+exports.user_protected = asyncHandler(async (req, res, next) => {
+  res.json('Protected content');
+});

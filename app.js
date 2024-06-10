@@ -6,13 +6,13 @@ const createError = require('http-errors');
 const cors = require('cors')
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require("helmet");
 
 require('./config/passport.js');
 
-const session = require("express-session");
+// const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
@@ -44,15 +44,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Update to include storeSession?
-app.use(session({ 
-  secret: process.env.SESSION_SECRET, 
-  resave: false, 
-  saveUninitialized: true 
-}));
+// app.use(session({ 
+//   secret: process.env.SESSION_SECRET, 
+//   resave: false, 
+//   saveUninitialized: true 
+// }));
 
 app.use(
   helmet.contentSecurityPolicy({
