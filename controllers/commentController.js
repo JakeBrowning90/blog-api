@@ -24,7 +24,8 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
                 user: req.body.user,
                 post: req.body.post,
             });
-            await comment.save();
+            await comment.save().then(comment => comment.populate('user'));
+            // const newComment = await Comment.findById().populate('user').exec();
             res.json(comment);
         }
     })
