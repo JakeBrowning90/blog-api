@@ -34,9 +34,9 @@ router.post('/login',
 // router.post('/logout', userController.user_logout);
 
 //TEST show logged in user
-router.post('/current', userController.user_current);
+// router.post('/current', userController.user_current);
 
 //TEST ROUTE for JWT
-router.post('/protected', userController.user_protected);
+// router.post('/protected', userController.user_protected);
 
 module.exports = router;

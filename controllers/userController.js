@@ -6,10 +6,6 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// exports.function_name = asyncHandler(async (req, res, next) => {
-
-// });
-
 exports.user_list = asyncHandler(async (req, res, next) => {
   const allUsers = await User.find().exec();
   res.json(allUsers);
@@ -49,7 +45,6 @@ exports.user_create = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
       username: req.body.username,
@@ -77,7 +72,7 @@ exports.user_login = asyncHandler(async (req, res, next) => {
         username: req.user.username,
         id: req.user._id,
         isAuthor: req.user.isAuthor,
-        // Add "Bearer"?
+        // Add "Bearer" on frontend
         token: token,
       });
     }
@@ -100,7 +95,6 @@ exports.user_current = asyncHandler(async (req, res, next) => {
   } else {
     res.json("No user logged in");
   }
-  // res.json('Checking current user');
 });
 
 exports.user_read = asyncHandler(async (req, res, next) => {
@@ -126,6 +120,6 @@ exports.user_update = asyncHandler(async (req, res, next) => {
 //     res.json('Deleted Reader');
 // });
 
-exports.user_protected = asyncHandler(async (req, res, next) => {
-  res.json("Protected content");
-});
+// exports.user_protected = asyncHandler(async (req, res, next) => {
+//   res.json("Protected content");
+// });
