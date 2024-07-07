@@ -5,7 +5,7 @@ middlewares = require("../config/middlewares")
 
 // READ all comments
 // Don't need this route?
-router.get('/', commentController.comment_list);
+// router.get('/', commentController.comment_list);
 
 // CREATE
 router.post('/', middlewares.verifyToken, commentController.comment_create);
@@ -14,7 +14,7 @@ router.post('/', middlewares.verifyToken, commentController.comment_create);
 router.get('/:id', middlewares.verifyToken, commentController.comment_read);
 
 // UPDATE
-router.put('/:id', commentController.comment_update);
+// router.put('/:id', commentController.comment_update);
 
 // DELETE
 router.delete('/:id', middlewares.verifyToken, commentController.comment_delete);

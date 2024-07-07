@@ -4,11 +4,12 @@ const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 
 // Get ALL comments (unneeded?)
-exports.comment_list = asyncHandler(async (req, res, next) => {
-  const allComments = await Comment.find().populate("reader").exec();
-  res.json(allComments);
-});
+// exports.comment_list = asyncHandler(async (req, res, next) => {
+//   const allComments = await Comment.find().populate("reader").exec();
+//   res.json(allComments);
+// });
 
+// Create new comment
 exports.comment_create = asyncHandler(async (req, res, next) => {
   jwt.verify(req.token, "secretword", async (err, authData) => {
     if (err) {
@@ -40,17 +41,18 @@ exports.comment_read = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.comment_update = asyncHandler(async (req, res, next) => {
-  const comment = new Comment({
-    body: req.body.body,
-    timestamp: Date.now(),
-    reader: req.body.reader,
-    post: req.body.post,
-    _id: req.params.id,
-  });
-  await Comment.findByIdAndUpdate(req.params.id, comment);
-  res.json(comment);
-});
+// Update a comment (Unused now)
+// exports.comment_update = asyncHandler(async (req, res, next) => {
+//   const comment = new Comment({
+//     body: req.body.body,
+//     timestamp: Date.now(),
+//     reader: req.body.reader,
+//     post: req.body.post,
+//     _id: req.params.id,
+//   });
+//   await Comment.findByIdAndUpdate(req.params.id, comment);
+//   res.json(comment);
+// });
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {
   jwt.verify(req.token, "secretword", async (err, authData) => {

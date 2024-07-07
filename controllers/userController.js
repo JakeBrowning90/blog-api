@@ -6,10 +6,10 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.user_list = asyncHandler(async (req, res, next) => {
-  const allUsers = await User.find().exec();
-  res.json(allUsers);
-});
+// exports.user_list = asyncHandler(async (req, res, next) => {
+//   const allUsers = await User.find().exec();
+//   res.json(allUsers);
+// });
 
 exports.user_create = [
   body("username")
@@ -79,23 +79,23 @@ exports.user_login = asyncHandler(async (req, res, next) => {
   );
 });
 
-exports.user_logout = asyncHandler(async (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-  });
-  res.json("Logged out!");
-});
+// exports.user_logout = asyncHandler(async (req, res, next) => {
+//   req.logout((err) => {
+//     if (err) {
+//       return next(err);
+//     }
+//   });
+//   res.json("Logged out!");
+// });
 
 // Testing route
-exports.user_current = asyncHandler(async (req, res, next) => {
-  if (req.session) {
-    res.json(req.session);
-  } else {
-    res.json("No user logged in");
-  }
-});
+// exports.user_current = asyncHandler(async (req, res, next) => {
+//   if (req.session) {
+//     res.json(req.session);
+//   } else {
+//     res.json("No user logged in");
+//   }
+// });
 
 exports.user_read = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id).exec();

@@ -3,11 +3,11 @@ const router = express.Router();
 const passport = require("passport");
 const userController = require("../controllers/userController");
 
-// CREATE new user fron registration
+// CREATE new user from registration
 router.post('/', userController.user_create);
 
 // Test
-router.get('/', userController.user_list);
+// router.get('/', userController.user_list);
 
 // READ one user
 // Need this for login?

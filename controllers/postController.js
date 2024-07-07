@@ -91,11 +91,13 @@ exports.post_update = asyncHandler(async (req, res, next) => {
   res.json(post);
 });
 
+// Delete a post
 exports.post_delete = asyncHandler(async (req, res, next) => {
   await Post.findByIdAndDelete(req.params.id);
   res.json("Deleted post");
 });
 
+// Delete a post's comments
 exports.post_comments_delete = asyncHandler(async (req, res, next) => {
   await Comment.deleteMany({ post: req.params.id });
   res.json("Deleted post comments");
