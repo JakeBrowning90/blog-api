@@ -51,6 +51,7 @@ exports.user_create = [
       email: req.body.email.toLowerCase(),
       password: hashedPassword,
       isAuthor: false,
+      isDemoGuest: true,
     });
 
     if (!errors.isEmpty()) {
@@ -72,6 +73,7 @@ exports.user_login = asyncHandler(async (req, res, next) => {
         username: req.user.username,
         id: req.user._id,
         isAuthor: req.user.isAuthor,
+        isDemoGuest: req.user.isDemoGuest,
         // Add "Bearer" on frontend
         token: token,
       });
@@ -108,6 +110,7 @@ exports.user_update = asyncHandler(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     isAuthor: true,
+    isDemoGuest: false,
     _id: req.params.id,
   });
 

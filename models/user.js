@@ -7,6 +7,7 @@ const UserSchema = new Schema(
     email: { type: String, maxLength: 30, required: true },
     password: { type: String, required: true },
     isAuthor: { type: Boolean, required: true },
+    isDemoGuest: { type: Boolean, required: true },
   },
   { toJSON: { virtuals: true } }
 );
